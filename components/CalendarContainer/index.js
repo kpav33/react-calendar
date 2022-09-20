@@ -2,7 +2,8 @@ import React, { useState, useEffect, useRef } from "react";
 import styles from "./CalendarContainer.module.css";
 
 import Calendar from "react-calendar";
-import "react-calendar/dist/Calendar.css";
+// import "react-calendar/dist/Calendar.css";
+// styles added to to the globals.css file for easier styling changes
 
 export default function CalendarContainer(
   {

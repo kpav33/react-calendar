@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import styles from "./CalendarContainer.module.css";
 
 import Calendar from "react-calendar";
@@ -14,6 +14,7 @@ export default function CalendarContainer(
 ) {
   const [mounted, setMounted] = useState(false);
   const [value, onChange] = useState(new Date());
+  const [userInfo, setUserInfo] = useState(false);
 
   const [arrayDates, setArrayDates] = useState([
     "2022-09-28T22:00:00.000Z",
@@ -21,6 +22,10 @@ export default function CalendarContainer(
     "2022-10-18T22:00:00.000Z",
     "2022-11-05T23:00:00.000Z",
   ]);
+
+  const [formState, setFormState] = useState({});
+  const [messageSent, setMessageSent] = useState(false);
+  const formRef = useRef();
 
   // console.log(value);
 
@@ -56,13 +61,26 @@ export default function CalendarContainer(
     );
   };
 
-  const selectDate = () => {
+  const selectDate = (e) => {
     // arrayDates.push(value.toISOString());
+    e.preventDefault();
     setArrayDates((prevDates) => [...prevDates, value.toISOString()]);
     // console.log(arrayDates);
     console.log("Date selected successfully!");
     // console.log(value);
     // tileDisabled();
+    handleReset();
+    setUserInfo(false);
+
+    setMessageSent(true);
+    setTimeout(() => {
+      setMessageSent(false);
+    }, 3000);
+  };
+
+  const handleDayClick = (date) => {
+    console.log(date);
+    setUserInfo(true);
   };
 
   // console.log(value);
@@ -82,6 +100,17 @@ export default function CalendarContainer(
   // selectRange => Whether the user shall select two dates forming a range instead of just one. Note: This feature will make React-Calendar return array with two dates regardless of returnValue setting.
   // value => Calendar value. Can be either one value or an array of two values. If you wish to use React-Calendar in an uncontrolled way, use defaultValue instead.
 
+  // console.log(formState);
+  // console.log(messageSent);
+
+  const handleChange = (e) => {
+    setFormState({ ...formState, [e.target.name]: e.target.value });
+  };
+
+  const handleReset = () => {
+    formRef.current.reset();
+  };
+
   return (
     <div className={styles.container}>
       <div>
@@ -98,11 +127,40 @@ export default function CalendarContainer(
             // selectRange={true}
             tileDisabled={tileDisabled}
             // onClickDay={(date) => console.log("You clicked me! ", date)}
-            // onClickDay={() => selectDate()}
+            onClickDay={(date) => handleDayClick(date)}
           />
         )}
-        <button onClick={selectDate}>Select date</button>
+        {userInfo && (
+          <div className={styles.info}>
+            <form name="test" ref={formRef}>
+              <input
+                type="text"
+                name="name"
+                placeholder="name"
+                required
+                onChange={handleChange}
+              />
+              <input
+                type="email"
+                name="email"
+                placeholder="email"
+                required
+                onChange={handleChange}
+              />
+              <input
+                type="text"
+                name="number"
+                placeholder="number"
+                required
+                onChange={handleChange}
+              />
+              <button onClick={selectDate}>Select date</button>
+            </form>
+            {/* <button onClick={selectDate}>Select date</button> */}
+          </div>
+        )}
       </div>
+      {messageSent && <p>Appointment created</p>}
     </div>
   );
 }

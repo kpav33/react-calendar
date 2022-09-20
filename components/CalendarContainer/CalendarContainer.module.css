@@ -1,3 +1,13 @@
 .container {
     padding: 40px;
 }
+
+.info {
+    margin: 20px 0px;
+}
+
+.info form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

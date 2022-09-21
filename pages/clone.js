@@ -1,7 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 
+import { getMonth } from "../utils/util";
+
+import CalendarHeader from "../components/CalendarHeader";
+import Sidebar from "../components/Sidebar";
+import Month from "../components/Month";
+
 export default function Clone() {
+  // console.table(getMonth());
+  const [currentMonth, setCurrentMonth] = useState(getMonth());
+
   return (
     <div>
       <nav style={{ display: "flex", gap: "10px", margin: "20px 10px" }}>
@@ -12,9 +21,15 @@ export default function Clone() {
           <a>Clone</a>
         </Link>
       </nav>
-      <div>
-        <h1 className="text-3xl font-bold underline">Hello world!</h1>
-      </div>
+      <React.Fragment>
+        <div className="h-screen flex flex-col">
+          <CalendarHeader />
+          <div className="flex flex-1">
+            <Sidebar />
+            <Month month={currentMonth} />
+          </div>
+        </div>
+      </React.Fragment>
     </div>
   );
 }

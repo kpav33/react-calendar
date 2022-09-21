@@ -11,6 +11,10 @@ export default function Clone() {
   // console.table(getMonth());
   const [currentMonth, setCurrentMonth] = useState(getMonth());
 
+  // Finished at 46:00!
+  // https://www.youtube.com/watch?v=KUKyTRYGrnU
+  // https://github.com/3stbn/google-calendar-clone
+
   return (
     <div>
       <nav style={{ display: "flex", gap: "10px", margin: "20px 10px" }}>

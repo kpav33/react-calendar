@@ -7,6 +7,9 @@ const GlobalContext = createContext({
   setSmallCalendarMonth: (index) => {},
   daySelected: null,
   setDaySelected: (day) => {},
+  showEventModal: false,
+  setShowEventModal: () => {},
+  dispatchCallEvent: ({ type, payload }) => {},
 });
 
 export default GlobalContext;

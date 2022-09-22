@@ -8,17 +8,18 @@ import GlobalContext from "../context/GlobalContext";
 import CalendarHeader from "../components/CalendarHeader";
 import Sidebar from "../components/Sidebar";
 import Month from "../components/Month";
+import EventModal from "../components/EventModal.js";
 
 export default function Clone() {
   // console.table(getMonth());
   const [currentMonth, setCurrentMonth] = useState(getMonth());
-  const { monthIndex } = useContext(GlobalContext);
+  const { monthIndex, showEventModal } = useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 
-  // Finished at 01:27:00!
+  // Finished at 02:18:00!
   // https://www.youtube.com/watch?v=KUKyTRYGrnU
   // https://github.com/3stbn/google-calendar-clone
 
@@ -33,6 +34,7 @@ export default function Clone() {
         </Link>
       </nav>
       <React.Fragment>
+        {showEventModal && <EventModal />}
         <div className="h-screen flex flex-col">
           <CalendarHeader />
           <div className="flex flex-1">

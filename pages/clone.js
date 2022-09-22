@@ -18,7 +18,7 @@ export default function Clone() {
     setCurrentMonth(getMonth(monthIndex));
   }, [monthIndex]);
 
-  // Finished at 46:00!
+  // Finished at 01:27:00!
   // https://www.youtube.com/watch?v=KUKyTRYGrnU
   // https://github.com/3stbn/google-calendar-clone
 

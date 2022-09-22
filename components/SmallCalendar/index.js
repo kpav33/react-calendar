@@ -11,12 +11,8 @@ export default function SmallCalendar() {
     setCurrentMonth(getMonth(currentMonthIdx));
   }, [currentMonthIdx]);
 
-  const {
-    monthIndex,
-    // setSmallCalendarMonth,
-    // setDaySelected,
-    // daySelected,
-  } = useContext(GlobalContext);
+  const { monthIndex, setSmallCalendarMonth, setDaySelected, daySelected } =
+    useContext(GlobalContext);
 
   useEffect(() => {
     setCurrentMonthIdx(monthIndex);
@@ -34,10 +30,11 @@ export default function SmallCalendar() {
     const format = "DD-MM-YY";
     const nowDay = dayjs().format(format);
     const currDay = day.format(format);
-    //   const slcDay = daySelected && daySelected.format(format);
+    const slcDay = daySelected && daySelected.format(format);
     if (nowDay === currDay) {
       return "bg-blue-500 rounded-full text-white";
-    } else if (false) {
+    } else if (currDay === slcDay) {
+      // Highlight the selected day in the small calendar
       return "bg-blue-100 rounded-full text-blue-600 font-bold";
     } else {
       return "";
@@ -77,8 +74,10 @@ export default function SmallCalendar() {
               <button
                 key={idx}
                 onClick={() => {
-                  //   setSmallCalendarMonth(currentMonthIdx);
-                  //   setDaySelected(day);
+                  // Change the big calendar to the right month, if you click on a day in the smaller aside calendar
+                  setSmallCalendarMonth(currentMonthIdx);
+                  // Highlight the selected day in the small calendar
+                  setDaySelected(day);
                 }}
                 className={`py-1 w-full ${getDayClass(day)}`}
                 // className={`py-1 w-full`}

@@ -4,25 +4,21 @@ import GlobalContext from "../../context/GlobalContext";
 const labelsClasses = ["indigo", "gray", "green", "blue", "red", "purple"];
 
 export default function EventModal() {
-  const {
-    setShowEventModal,
-    daySelected,
-    dispatchCallEvent,
-    //   selectedEvent
-  } = useContext(GlobalContext);
+  const { setShowEventModal, daySelected, dispatchCallEvent, selectedEvent } =
+    useContext(GlobalContext);
 
-  const [title, setTitle] = useState("");
-  //   const [title, setTitle] = useState(selectedEvent ? selectedEvent.title : "");
-  const [description, setDescription] = useState("");
-  //   const [description, setDescription] = useState(
-  //     selectedEvent ? selectedEvent.description : ""
-  //   );
-  const [selectedLabel, setSelectedLabel] = useState(labelsClasses[0]);
-  //   const [selectedLabel, setSelectedLabel] = useState(
-  //     selectedEvent
-  //       ? labelsClasses.find((lbl) => lbl === selectedEvent.label)
-  //       : labelsClasses[0]
-  //   );
+  // Get data from the selected event if it exists
+  const [title, setTitle] = useState(selectedEvent ? selectedEvent.title : "");
+  const [description, setDescription] = useState(
+    selectedEvent ? selectedEvent.description : ""
+  );
+
+  // const [selectedLabel, setSelectedLabel] = useState(labelsClasses[0]);
+  const [selectedLabel, setSelectedLabel] = useState(
+    selectedEvent
+      ? labelsClasses.find((lbl) => lbl === selectedEvent.label)
+      : labelsClasses[0]
+  );
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -31,16 +27,16 @@ export default function EventModal() {
       description,
       label: selectedLabel,
       day: daySelected.valueOf(),
-      id: Date.now(),
-      //   id: selectedEvent ? selectedEvent.id : Date.now(),
+      // id: Date.now(),
+      id: selectedEvent ? selectedEvent.id : Date.now(),
     };
-    // if (selectedEvent) {
-    //   dispatchCalEvent({ type: "update", payload: calendarEvent });
-    // } else {
-    //   dispatchCalEvent({ type: "push", payload: calendarEvent });
-    // }
+    if (selectedEvent) {
+      dispatchCallEvent({ type: "update", payload: calendarEvent });
+    } else {
+      dispatchCallEvent({ type: "push", payload: calendarEvent });
+    }
 
-    dispatchCallEvent({ type: "push", payload: calendarEvent });
+    // dispatchCallEvent({ type: "push", payload: calendarEvent });
     setShowEventModal(false);
   }
 
@@ -52,10 +48,10 @@ export default function EventModal() {
             drag_handle
           </span>
           <div>
-            {/* {selectedEvent && (
+            {selectedEvent && (
               <span
                 onClick={() => {
-                  dispatchCalEvent({
+                  dispatchCallEvent({
                     type: "delete",
                     payload: selectedEvent,
                   });
@@ -65,7 +61,7 @@ export default function EventModal() {
               >
                 delete
               </span>
-            )} */}
+            )}
             <button onClick={() => setShowEventModal(false)}>
               <span className="material-icons-outlined text-gray-400">
                 close

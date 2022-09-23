@@ -36,6 +36,8 @@ export default function ContextWrapper({ children }) {
   const [daySelected, setDaySelected] = useState(dayjs());
   // Track open or close the event modal
   const [showEventModal, setShowEventModal] = useState(false);
+  // Track currently selected event
+  const [selectedEvent, setSelectedEvent] = useState(null);
   // Reducer
   const [savedEvents, dispatchCallEvent] = useReducer(
     savedEventsReducer,
@@ -54,6 +56,12 @@ export default function ContextWrapper({ children }) {
     }
   }, [smallCalendarMonth]);
 
+  useEffect(() => {
+    if (!showEventModal) {
+      setSelectedEvent(null);
+    }
+  }, [showEventModal]);
+
   return (
     <GlobalContext.Provider
       value={{
@@ -66,6 +74,8 @@ export default function ContextWrapper({ children }) {
         showEventModal,
         setShowEventModal,
         dispatchCallEvent,
+        selectedEvent,
+        setSelectedEvent,
         savedEvents,
       }}
     >

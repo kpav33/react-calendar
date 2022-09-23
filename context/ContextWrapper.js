@@ -38,6 +38,8 @@ export default function ContextWrapper({ children }) {
   const [showEventModal, setShowEventModal] = useState(false);
   // Track currently selected event
   const [selectedEvent, setSelectedEvent] = useState(null);
+  // Track labels
+  const [labels, setLabels] = useState([]);
   // Reducer
   const [savedEvents, dispatchCallEvent] = useReducer(
     savedEventsReducer,
@@ -49,6 +51,19 @@ export default function ContextWrapper({ children }) {
   useEffect(() => {
     !ISSERVER &&
       localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
+  }, [savedEvents]);
+
+  // Create labels that can be either selected or unselected
+  useEffect(() => {
+    setLabels((prevLabels) => {
+      return [...new Set(savedEvents.map((evt) => evt.label))].map((label) => {
+        const currentLabel = prevLabels.find((lbl) => lbl.label === label);
+        return {
+          label,
+          checked: currentLabel ? currentLabel.checked : true,
+        };
+      });
+    });
   }, [savedEvents]);
 
   useEffect(() => {
@@ -79,6 +94,8 @@ export default function ContextWrapper({ children }) {
         selectedEvent,
         setSelectedEvent,
         savedEvents,
+        labels,
+        setLabels,
       }}
     >
       {children}

@@ -13,6 +13,8 @@ const GlobalContext = createContext({
   selectedEvent: null,
   setSelectedEvent: () => {},
   savedEvents: [],
+  setLabels: () => {},
+  labels: [],
 });
 
 export default GlobalContext;

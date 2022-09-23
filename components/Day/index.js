@@ -7,8 +7,8 @@ export default function Day({ day, rowIdx }) {
   const {
     setDaySelected,
     setShowEventModal,
-    savedEvents,
-    // filteredEvents,
+    // savedEvents,
+    filteredEvents,
     setSelectedEvent,
   } = useContext(GlobalContext);
 
@@ -16,11 +16,11 @@ export default function Day({ day, rowIdx }) {
 
   // Get all events that correspond to the day
   useEffect(() => {
-    const events = savedEvents.filter(
+    const events = filteredEvents.filter(
       (evt) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY")
     );
     setDayEvents(events);
-  }, [savedEvents, day]);
+  }, [filteredEvents, day]);
 
   // Use this to mark the active day with a blue dot
   function getCurrentDayClass() {

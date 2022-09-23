@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useReducer } from "react";
+import React, { useState, useEffect, useReducer, useMemo } from "react";
 
 import GlobalContext from "./GlobalContext";
 
@@ -47,6 +47,16 @@ export default function ContextWrapper({ children }) {
     initEvents
   );
 
+  // Filter events by label
+  const filteredEvents = useMemo(() => {
+    return savedEvents.filter((evt) =>
+      labels
+        .filter((lbl) => lbl.checked)
+        .map((lbl) => lbl.label)
+        .includes(evt.label)
+    );
+  }, [savedEvents, labels]);
+
   // Store events in local storage
   useEffect(() => {
     !ISSERVER &&
@@ -79,6 +89,11 @@ export default function ContextWrapper({ children }) {
     }
   }, [showEventModal]);
 
+  // Change labels from checked or unchecked
+  function updateLabel(label) {
+    setLabels(labels.map((lbl) => (lbl.label === label.label ? label : lbl)));
+  }
+
   return (
     <GlobalContext.Provider
       value={{
@@ -96,6 +111,8 @@ export default function ContextWrapper({ children }) {
         savedEvents,
         labels,
         setLabels,
+        updateLabel,
+        filteredEvents,
       }}
     >
       {children}

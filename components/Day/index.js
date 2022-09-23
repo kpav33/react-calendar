@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import dayjs from "dayjs";
 
 import GlobalContext from "../../context/GlobalContext";
@@ -7,9 +7,20 @@ export default function Day({ day, rowIdx }) {
   const {
     setDaySelected,
     setShowEventModal,
+    savedEvents,
     // filteredEvents,
     // setSelectedEvent,
   } = useContext(GlobalContext);
+
+  const [dayEvents, setDayEvents] = useState([]);
+
+  // Get all events that correspond to the day
+  useEffect(() => {
+    const events = savedEvents.filter(
+      (evt) => dayjs(evt.day).format("DD-MM-YY") === day.format("DD-MM-YY")
+    );
+    setDayEvents(events);
+  }, [savedEvents, day]);
 
   // Use this to mark the active day with a blue dot
   function getCurrentDayClass() {
@@ -36,15 +47,15 @@ export default function Day({ day, rowIdx }) {
           setShowEventModal(true);
         }}
       >
-        {/* {dayEvents.map((evt, idx) => (
+        {dayEvents.map((evt, idx) => (
           <div
             key={idx}
-            onClick={() => setSelectedEvent(evt)}
+            // onClick={() => setSelectedEvent(evt)}
             className={`bg-${evt.label}-200 p-1 mr-3 text-gray-600 text-sm rounded mb-1 truncate`}
           >
             {evt.title}
           </div>
-        ))} */}
+        ))}
       </div>
     </div>
   );

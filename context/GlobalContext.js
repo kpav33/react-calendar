@@ -10,6 +10,7 @@ const GlobalContext = createContext({
   showEventModal: false,
   setShowEventModal: () => {},
   dispatchCallEvent: ({ type, payload }) => {},
+  savedEvents: [],
 });
 
 export default GlobalContext;

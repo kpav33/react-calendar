@@ -66,6 +66,7 @@ export default function ContextWrapper({ children }) {
         showEventModal,
         setShowEventModal,
         dispatchCallEvent,
+        savedEvents,
       }}
     >
       {children}

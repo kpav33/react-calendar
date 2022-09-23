@@ -45,6 +45,7 @@ export default function ContextWrapper({ children }) {
     initEvents
   );
 
+  // Store events in local storage
   useEffect(() => {
     !ISSERVER &&
       localStorage.setItem("savedEvents", JSON.stringify(savedEvents));
@@ -56,6 +57,7 @@ export default function ContextWrapper({ children }) {
     }
   }, [smallCalendarMonth]);
 
+  // Clean up selected event
   useEffect(() => {
     if (!showEventModal) {
       setSelectedEvent(null);

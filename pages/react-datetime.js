@@ -18,6 +18,8 @@ export default function ReactDatetime() {
   // onChange => Callback trigger when the date changes. The callback receives the selected moment object as only parameter, if the date in the input is valid. If the date in the input is not valid, the callback receives the value of the input (a string).
   // onOpen, onClose => Callback trigger for when the user opens/closes the datepicker.
   // isValidDate => Define the dates that can be selected. The function receives (currentDate, selectedDate) and shall return a true or false whether the currentDate is valid or not. See selectable dates.
+  // timeConstraints => Add some constraints to the timepicker. It accepts an object with the format { hours: { min: 9, max: 15, step: 2 }}, this example means the hours can't be lower than 9 and higher than 15, and it will change adding or subtracting 2 hours everytime the buttons are clicked. The constraints can be added to the hours, minutes, seconds and milliseconds.
+  // onBeforeNavigate => Allows to intercept a change of the calendar view. The accepted function receives the view that it's supposed to navigate to, the view that is showing currently and the date currently shown in the view. Return a viewMode ( default ones are years, months, days or time) to navigate to it. If the function returns a "falsy" value, the navigation is stopped and we will remain in the current view.
 
   const yesterday = moment().subtract(1, "day");
   const valid = (current) => {
@@ -47,6 +49,10 @@ export default function ReactDatetime() {
           locale="sl"
           onChange={(date) => console.log("Date changed! ", date._d)}
           isValidDate={valid}
+          timeConstraints={{ hours: { min: 9, max: 15, step: 1 } }}
+          // Intercept and disable change of the calendar view
+          // This way only daily view mode is enabled
+          onBeforeNavigate={() => false}
         />
       </div>
     </div>

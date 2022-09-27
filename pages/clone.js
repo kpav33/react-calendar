@@ -32,6 +32,9 @@ export default function Clone() {
         <Link href="/clone">
           <a>Clone</a>
         </Link>
+        <Link href="/react-datetime">
+          <a>React-datetime</a>
+        </Link>
       </nav>
       <React.Fragment>
         {showEventModal && <EventModal />}

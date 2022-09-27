@@ -42,6 +42,9 @@ export default function Home() {
           <Link href="/clone">
             <a>Clone</a>
           </Link>
+          <Link href="/react-datetime">
+            <a>React-datetime</a>
+          </Link>
         </nav>
 
         <p className={styles.description}>

@@ -34,6 +34,9 @@ export default function Clone() {
         <Link href="/react-datetime">
           <a>React-datetime</a>
         </Link>
+        <Link href="/react-big-calendar">
+          <a>React-big-calendar</a>
+        </Link>
       </nav>
       <React.Fragment>
         {showEventModal && <EventModal />}

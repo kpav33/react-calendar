@@ -6,6 +6,7 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
+import "moment/locale/fr";
 
 const localizer = momentLocalizer(moment);
 
@@ -20,6 +21,9 @@ const MyCalendar = (props) => (
     />
   </div>
 );
+
+// https://jquense.github.io/react-big-calendar/examples/?path=/story/about-big-calendar--page
+// Not that useful for your needs, better to work more on the already created google calendar clone and adjust that for your needs
 
 export default function ReactBigCalendar() {
   return (
@@ -39,7 +43,7 @@ export default function ReactBigCalendar() {
         </Link>
       </nav>
       <div className={styles.center}>
-        <MyCalendar />
+        <MyCalendar culture="fr" />
       </div>
     </div>
   );

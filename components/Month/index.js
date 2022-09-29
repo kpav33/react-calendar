@@ -11,7 +11,6 @@ export default function Month({ month }) {
           ))}
         </React.Fragment>
       ))}
-      month
     </div>
   );
 }
